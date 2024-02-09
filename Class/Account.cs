@@ -16,5 +16,44 @@ namespace Bank.Class
             Credit = credit;
             Name = name;
         }
+
+        public bool WithDraw(double withDrawAmount) 
+        {
+            if (Balance - withDrawAmount < (Credit *-1)) 
+            {
+                Console.WriteLine("Insufficient Balance.");
+                return false;
+            }
+            Balance -= withDrawAmount;
+
+            Console.WriteLine($"The current account balance of {Name} is: {Balance}");
+
+            return true;
+        }
+
+        public void Deposit(double depositAmount) 
+        {
+            Balance += depositAmount;
+
+            Console.WriteLine($"The current account balance of {Name} is: {Balance}");
+        }
+
+        public void Transfer(double transferAmount, Account destinationAccount)
+        {
+            if(WithDraw(transferAmount))
+            {
+                destinationAccount.Deposit(transferAmount);
+            }
+        }
+
+        public override string ToString()
+        {
+            string output = "";
+            output += "Account type: " + AccountType + " | ";
+            output += "Name: " + Name + " | ";
+            output += "Balance: " + Balance + " | ";
+            output += "Credit: " + Credit + " | ";
+            return output;
+        }
     }
 }
