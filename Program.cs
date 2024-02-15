@@ -27,10 +27,10 @@ namespace Bank
                         //Transfer();
                         break;
                     case "4":
-                        //WithDraw();
+                        WithDraw();
                         break;
                     case "5":
-                        //Deposit();
+                        Deposit();
                         break;
                     case "C":
                         Console.Clear();
@@ -48,7 +48,10 @@ namespace Bank
 
         private static void AddAccount()
         {
-            Console.WriteLine("Add new account:");
+            Console.WriteLine("You selected the option >> 2 - ADD A NEW ACCOUNT <<");
+            Console.WriteLine();
+
+            Console.WriteLine("To add a new account, please:");
 
             Console.Write("Press 1 for Legal Person or 2 for Individual Account: ");
             int userAccountType = int.Parse(Console.ReadLine());
@@ -68,24 +71,71 @@ namespace Bank
                                             userName);
 
             accountList.Add(newAccount);
+
+            Console.WriteLine();
+            Console.WriteLine("Press Enter to continue...");
+            Console.ReadLine();
         }
 
         private static void AccountList()
         {
-            Console.WriteLine("List of the accounts:");
-            
+            Console.WriteLine("You selected the option >> 1 - LIST ALL THE ACCOUNTS <<");
+            Console.WriteLine();
+
             if(accountList.Count == 0) 
             {
                 Console.WriteLine("No account registered.");
                 return;
             }
             
+            Console.WriteLine("List of the accounts:");
+
             for (int i = 0; i < accountList.Count; i++) 
             {
                 Account account = accountList[i];
                 Console.Write("#{0} - ", i);
                 Console.WriteLine(account);
             }
+
+            Console.WriteLine();
+            Console.WriteLine("Press Enter to continue...");
+            Console.ReadLine();
+        }
+
+        private static void WithDraw()
+        {
+            Console.WriteLine("You selected the option >> 4 - WITHDRAW <<");
+            Console.WriteLine();
+
+            Console.Write("Enter the number of the account: ");
+            int numberOfTheAccount = int.Parse(Console.ReadLine());
+
+            Console.Write("Enter the amount you want to withdraw: ");
+            double withdrawAmount = double.Parse(Console.ReadLine());
+
+            accountList[numberOfTheAccount].WithDraw(withdrawAmount);
+
+            Console.WriteLine();
+            Console.WriteLine("Press Enter to continue...");
+            Console.ReadLine();
+        }
+
+        private static void Deposit()
+        {
+            Console.WriteLine("You selected the option >> 5 - Deposit <<");
+            Console.WriteLine();
+            Console.Write("Enter the number of the account: ");
+
+            int numberOfTheAccount = int.Parse(Console.ReadLine());
+
+            Console.Write("Enter the amount you want to make a deposit: ");
+            double depositAmount = double.Parse(Console.ReadLine());
+
+            accountList[numberOfTheAccount].Deposit(depositAmount);
+
+            Console.WriteLine();
+            Console.WriteLine("Press Enter to continue...");
+            Console.ReadLine();
         }
 
         private static string GetUserOption()
@@ -93,12 +143,14 @@ namespace Bank
             Console.WriteLine();
             Console.WriteLine("DIO Bank at your service!");
             Console.WriteLine("How can we help you today?");
+            Console.WriteLine();
             Console.WriteLine("Select the option below:");
 
-            Console.WriteLine("1 - Account's List");
+            Console.WriteLine("1 - List all the accounts");
             Console.WriteLine("2 - Add new account");
             Console.WriteLine("3 - Make a new transfer");
             Console.WriteLine("4 - Withdraw");
+            Console.WriteLine("5 - Deposit");
             Console.WriteLine("C - Clean");
             Console.WriteLine("X - Exit");
             Console.WriteLine();

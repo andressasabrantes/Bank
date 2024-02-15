@@ -24,9 +24,15 @@ namespace Bank.Class
                 Console.WriteLine("Insufficient Balance.");
                 return false;
             }
+            
             Balance -= withDrawAmount;
 
-            Console.WriteLine($"The current account balance of {Name} is: {Balance}");
+            if (Balance < 0)
+            {
+                Credit -= withDrawAmount;
+            }
+
+            Console.WriteLine($"The current account balance of {Name} is: ${Balance},00");
 
             return true;
         }
@@ -35,7 +41,7 @@ namespace Bank.Class
         {
             Balance += depositAmount;
 
-            Console.WriteLine($"The current account balance of {Name} is: {Balance}");
+            Console.WriteLine($"The current account balance of {Name} is: ${Balance},00");
         }
 
         public void Transfer(double transferAmount, Account destinationAccount)
