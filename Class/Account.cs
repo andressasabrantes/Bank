@@ -17,22 +17,29 @@ namespace Bank.Class
             Name = name;
         }
 
-        public bool WithDraw(double withDrawAmount) 
+        public bool Withdraw(double withdrawAmount)
         {
-            if (Balance - withDrawAmount < (Credit *-1)) 
+            // Calculate the maximum allowed credit (Credit * -1)
+            double maxAllowedCredit = Credit * -1;
+
+            // Check if the balance is insufficient
+            if (Balance - withdrawAmount < maxAllowedCredit)
             {
                 Console.WriteLine("Insufficient Balance.");
                 return false;
             }
-            
-            Balance -= withDrawAmount;
 
+            // Update the balance
+            Balance -= withdrawAmount;
+
+            // If the balance is negative, update the credit
             if (Balance < 0)
             {
-                Credit -= withDrawAmount;
+                Credit = Math.Max(0, Credit + Balance);
             }
 
             Console.WriteLine($"The current account balance of {Name} is: ${Balance},00");
+            Console.WriteLine($"The current credit of {Name} is: ${Credit},00");
 
             return true;
         }
@@ -46,7 +53,7 @@ namespace Bank.Class
 
         public void Transfer(double transferAmount, Account destinationAccount)
         {
-            if(WithDraw(transferAmount))
+            if(Withdraw(transferAmount))
             {
                 destinationAccount.Deposit(transferAmount);
             }

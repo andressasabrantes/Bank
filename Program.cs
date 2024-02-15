@@ -24,7 +24,7 @@ namespace Bank
                         AddAccount();
                         break;
                     case "3":
-                        //Transfer();
+                        Transfer();
                         break;
                     case "4":
                         WithDraw();
@@ -102,6 +102,28 @@ namespace Bank
             Console.ReadLine();
         }
 
+        private static void Transfer()
+        {
+
+            Console.WriteLine("You selected the option >> 3 - MAKE A NEW TRANSFER <<");
+            Console.WriteLine();
+
+            Console.Write("Enter the number of the origin account: ");
+            int originAccount = int.Parse(Console.ReadLine());
+
+            Console.Write("Enter the number of the account you want to make a transfer to:  ");
+            int destinationAccount = int.Parse(Console.ReadLine());
+
+            Console.Write("Enter the amount you want to transfer: ");
+            double transferAmount = double.Parse(Console.ReadLine());
+
+            accountList[originAccount].Transfer(transferAmount, accountList[destinationAccount]);
+
+            Console.WriteLine();
+            Console.WriteLine("Press Enter to continue...");
+            Console.ReadLine();
+        }
+
         private static void WithDraw()
         {
             Console.WriteLine("You selected the option >> 4 - WITHDRAW <<");
@@ -113,7 +135,7 @@ namespace Bank
             Console.Write("Enter the amount you want to withdraw: ");
             double withdrawAmount = double.Parse(Console.ReadLine());
 
-            accountList[numberOfTheAccount].WithDraw(withdrawAmount);
+            accountList[numberOfTheAccount].Withdraw(withdrawAmount);
 
             Console.WriteLine();
             Console.WriteLine("Press Enter to continue...");
