@@ -6,6 +6,9 @@ namespace Bank
 {
     class Program
     {
+
+        static List<Account> accountList = new List<Account>();
+
         static void Main(string[] args)
         {
             string userOption = GetUserOption();
@@ -15,10 +18,10 @@ namespace Bank
                 switch(userOption)
                 {
                     case "1":
-                        //AccountsList();
+                        AccountList();
                         break;
                     case "2":
-                        //AddAccount();
+                        AddAccount();
                         break;
                     case "3":
                         //Transfer();
@@ -41,7 +44,48 @@ namespace Bank
             }
 
             Console.WriteLine("Thank you for choosing our Bank! See you next time!");
-            Console.ReadLine();
+        }
+
+        private static void AddAccount()
+        {
+            Console.WriteLine("Add new account:");
+
+            Console.Write("Press 1 for Legal Person or 2 for Individual Account: ");
+            int userAccountType = int.Parse(Console.ReadLine());
+
+            Console.Write("Enter the Client's Name: ");
+            string userName = Console.ReadLine();
+
+            Console.Write("Enter the initial balance: ");
+            double userInitialBalance = double.Parse(Console.ReadLine());
+
+            Console.Write("Enter the credit: ");
+            double userCredit = double.Parse(Console.ReadLine());
+
+            Account newAccount = new Account((AccountType)userAccountType, 
+                                            userInitialBalance, 
+                                            userCredit,
+                                            userName);
+
+            accountList.Add(newAccount);
+        }
+
+        private static void AccountList()
+        {
+            Console.WriteLine("List of the accounts:");
+            
+            if(accountList.Count == 0) 
+            {
+                Console.WriteLine("No account registered.");
+                return;
+            }
+            
+            for (int i = 0; i < accountList.Count; i++) 
+            {
+                Account account = accountList[i];
+                Console.Write("#{0} - ", i);
+                Console.WriteLine(account);
+            }
         }
 
         private static string GetUserOption()
